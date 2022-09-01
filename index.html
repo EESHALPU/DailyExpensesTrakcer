@@ -1,0 +1,72 @@
+<html>
+    <title>Daily Expense Tracker</title>
+
+<style>
+  .table {
+    border:1px solid #000000
+  }
+
+  .form{
+        margin: auto;
+        width: 50%;
+        border: 3px solid green;
+        background-color: aquamarine;
+        padding: 30px;
+  }
+  </style>
+<body>
+    <h1 align="center">Daily Expenses Tracker</h1>
+    <div class="form" >
+        <label>Select Category</label>
+    <select id="category">
+        <option>Food</option>
+        <option>Travel</option>
+        <option>Shopping</option>
+    </select>
+    <label>Select Date</label>
+    <input id="date" type="date" /> <br><br>
+
+    <label>Notes</label>
+    <input id="notes" type="text" />
+
+    <label>Amount</label>
+    <input id="number" oninput="validate(this)" type="number" /><br><br>
+    <button style="margin-left: 20%;" onclick="add()">Add Expense</button>
+    </div>
+    <table class="table" border="1" width="80%"  style="margin-top:100px; background-color: rgb(243, 209, 197);" align="center" id="table">
+        <th>Date</th>
+        <th >Category</th>
+        <th>Notes</th>
+        <th>Amount</th>
+    </table>
+
+    <table class="table" style="background-color:rgb(242, 219, 236);" width="80%" align="center">
+        <th colspan="3">Total=</th>
+        <th id="total">0</th>
+    </table>
+
+</div>
+<script>
+  let sum = 0;
+  // function for validate deciaml point
+    var validate = function(e) {
+      if (e.value.indexOf(".") != -1 && e.value.split(".")[1].length >=2){
+          e.value = Number(e.value).toFixed(2)
+     } 
+      }
+  function add() {
+    document.getElementById("table").innerHTML += `
+    <tr>
+        <td>${document.getElementById('date').value}</td>
+        <td>${document.getElementById('category').value}</td>
+      <td>${document.getElementById('notes').value}</td>
+      <td>${document.getElementById('number').value}</td>
+    </tr>
+    `
+    sum += Number(document.getElementById('number').value)
+    document.getElementById('total').innerHTML = sum
+  }
+</script>
+</body>
+
+</html>
